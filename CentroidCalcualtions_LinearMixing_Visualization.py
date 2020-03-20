@@ -205,14 +205,6 @@ wvs_dune2 = Dune2[:,0]
 I_dune2 = Dune2[:,1]
 dunes_centroid = [get_centroid(wvs_dune1,I_dune1,lower_lim,upper_lim),get_centroid(wvs_dune2,I_dune2,lower_lim,upper_lim)]
 dunes_index=[-4]*len(dunes_centroid) #set up indexing for figure
-#Smectites
-ValerieSmectites1 = np.genfromtxt('Data/Ferric_Synthetic_Smectites_ASD_08Mar18.txt',delimiter='\t',skip_header=12)
-ValerieSmectites2 = np.genfromtxt('Data/FeII_asd_09May18.txt',delimiter='\t',skip_header=8)
-ValerieSmectitesWL = ValerieSmectites1[:,1]/1000
-E = ValerieSmectites1[:,5]
-J = ValerieSmectites1[:,9]
-K = ValerieSmectites2[:,3]
-Smectite_centroids = [get_centroid(ValerieSmectitesWL,E,lower_lim,upper_lim),get_centroid(ValerieSmectitesWL,J,lower_lim,upper_lim),get_centroid(ValerieSmectitesWL,K,lower_lim,upper_lim)]
 
 print('I have finished importing all data....')
 
@@ -223,14 +215,13 @@ plt.figure(1)
 plt.plot(index_OPX,All_OPX_centroid,'o',markeredgecolor='black',color='purple',label='Library OPX')
 plt.plot(index_LCP,All_LCP_centroid,'o',markeredgecolor='black',color='palevioletred',label='Library LCP')
 plt.plot(index_HCP,All_HCP_centroid,'o',markeredgecolor='black',color='orange',label='Library HCP')
-plt.boxplot(All_BFU,positions=[-2],widths=0.75,showfliers=False,patch_artist=True,boxprops=dict(facecolor='dodgerblue'),medianprops=dict(color='black'))
-plt.boxplot(All_plateau,positions=[-1],widths=0.75,showfliers=False,patch_artist=True,boxprops=dict(facecolor='green'),medianprops=dict(color='black'))
-plt.boxplot(All_MLP,positions=[0],widths=0.75,showfliers=False,patch_artist=True,boxprops=dict(facecolor='darkviolet'),medianprops=dict(color='black'))
+bp1=plt.boxplot(All_BFU,positions=[-2],widths=0.75,showfliers=False,patch_artist=True,boxprops=dict(facecolor='dodgerblue'),medianprops=dict(color='black'))
+bp2=plt.boxplot(All_plateau,positions=[-1],widths=0.75,showfliers=False,patch_artist=True,boxprops=dict(facecolor='green'),medianprops=dict(color='black'))
+bp3=plt.boxplot(All_MLP,positions=[0],widths=0.75,showfliers=False,patch_artist=True,boxprops=dict(facecolor='darkviolet'),medianprops=dict(color='black'))
 plt.plot(glasses_index,glasses_centroids,'o',markeredgecolor='black',color='brown',label='Library glasses')
 plt.plot(dunes_index,dunes_centroid,'o',markeredgecolor='black',color='grey',label='Study area dunes')
-plt.plot([-5,-5,-5],Smectite_centroids,'o',markeredgecolor='black',color='blue',label='Library Fe/Mg-smectites')
 plt.xlim(-6,6)
-plt.legend()
+plt.legend([bp1["boxes"][0], bp2["boxes"][0], bp3["boxes"][0]], ['BFU', 'LPU', 'MLPU'], loc='best')
 plt.ylabel('Centroid')
 
 #Moving on to the data processing step
@@ -306,15 +297,18 @@ plt.figure(2)
 plt.plot(percentages,OPX_glasses_centroids,color='brown',label='OPX + Glass Mix')
 plt.plot(percentages,LCP_glasses_centroids,color='brown',label='LCP + Glass Mix')
 plt.plot(percentages,HCP_glasses_centroids,color='brown',label='HCP + Glass Mix')
-plt.plot(percentages,OPX_dunes_centroids,color='grey',label='OPX + Glass Mix')
-plt.plot(percentages,LCP_dunes_centroids,color='grey',label='LCP + Glass Mix')
-plt.plot(percentages,HCP_dunes_centroids,color='grey',label='HCP + Glass Mix')
-plt.boxplot(All_BFU,positions=[1.1],widths=0.1,showfliers=False,patch_artist=True,boxprops=dict(facecolor='dodgerblue'),medianprops=dict(color='black'))
-plt.boxplot(All_plateau,positions=[1.2],widths=0.1,showfliers=False,patch_artist=True,boxprops=dict(facecolor='green'),medianprops=dict(color='black'))
-plt.boxplot(All_MLP,positions=[1.35],widths=0.1,showfliers=False,patch_artist=True,boxprops=dict(facecolor='darkviolet'),medianprops=dict(color='black'))
+plt.plot(percentages,OPX_dunes_centroids,color='grey',label='OPX + Dunes Mix')
+plt.plot(percentages,LCP_dunes_centroids,color='grey',label='LCP + Dunes Mix')
+plt.plot(percentages,HCP_dunes_centroids,color='grey',label='HCP + Dunes Mix')
+bp1=plt.boxplot(All_BFU,positions=[1.1],widths=0.1,showfliers=False,patch_artist=True,boxprops=dict(facecolor='dodgerblue'),medianprops=dict(color='black'))
+bp2=plt.boxplot(All_plateau,positions=[1.2],widths=0.1,showfliers=False,patch_artist=True,boxprops=dict(facecolor='green'),medianprops=dict(color='black'))
+bp3=plt.boxplot(All_MLP,positions=[1.35],widths=0.1,showfliers=False,patch_artist=True,boxprops=dict(facecolor='darkviolet'),medianprops=dict(color='black'))
+plt.legend()
 plt.xlim(0,2.2)
 plt.xlabel('Pyroxene fraction')
 plt.ylabel('Centroid')
+plt.legend([bp1["boxes"][0], bp2["boxes"][0], bp3["boxes"][0]], ['BFU', 'LPU', 'MLPU'], loc='best')
+
 
 plt.show()
 
