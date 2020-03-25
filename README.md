@@ -1,6 +1,9 @@
 # Processing Spectra
 
 Here you will find two scripts that I have build to process and visualize the spectral centroid of mineral spectra.
+We were interested in observing how the spectral centroid of our Mars stattelite data compared with mixtures of different laboratory spectra. 
+Furthermore, we were interested in how the spectral centroid algorithm would perform for library spectra of minerals of known compositions (plotted in a ternary diagram)
+
 Results of these scripts were published in Scheller & Ehlmann (2020), JGR. 
 This directory includes the following python scripts: 
 
